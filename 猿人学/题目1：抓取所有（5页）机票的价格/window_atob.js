@@ -200,9 +200,9 @@ function binl2b64(d) {
         }
     }
     return f
-};
+}
 
 module.exports =
     {
-        hex_md5
+        f:hex_md5
     };

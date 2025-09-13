@@ -1,6 +1,6 @@
-
-
 import requests
+import execjs
+import json
 
 headers = {
     "accept": "application/json, text/javascript, */*; q=0.01",
@@ -9,27 +9,39 @@ headers = {
     "pragma": "no-cache",
     "priority": "u=0, i",
     "referer": "https://match.yuanrenxue.cn/match/1",
-    "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"Microsoft Edge\";v=\"139\", \"Chromium\";v=\"139\"",
+    "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"Microsoft Edge\";v=\"140\"",
     "sec-ch-ua-mobile": "?1",
     "sec-ch-ua-platform": "\"Android\"",
     "sec-fetch-dest": "empty",
     "sec-fetch-mode": "cors",
     "sec-fetch-site": "same-origin",
-    "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36 Edg/139.0.0.0",
+    "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36 Edg/140.0.0.0",
     "x-requested-with": "XMLHttpRequest"
 }
-cookies = {
-    "sessionid": "rs8xg8j3i1myi5oqzt1kym5sqljzeu3z",
-    "qpfccr": "true",
-    "no-alert3": "true",
-    "tk": "-4911410997706853071"
-}
 url = "https://match.yuanrenxue.cn/api/match/1"
-params = {
-    "page": "2",
-    "m": "b80d738b16a4a69761dcb5ef512f2d4b丨1756924176"
-}
-response = requests.get(url, headers=headers, cookies=cookies, params=params)
 
-print(response.text)
-print(response)
+# 读取 JS 文件内容
+with open('gateway.js', 'r', encoding='utf-8') as f:
+    js_source = f.read()
+# 编译整个脚本（创建一个 JS 上下文）
+ctx = execjs.compile(js_source)
+# 调用函数
+m = ctx.call('getM')
+
+ans = 0
+page = 1
+count = 0
+try:
+    while True:
+        params = {
+            "page": f"{page}",
+            "m": m
+        }
+        response = requests.get(url, headers=headers, params=params)
+        data = json.loads(response.text)["data"]
+        for dt in data:
+            ans += dt['value']
+            count += 1
+        page += 1
+except:
+    print(ans/count)
