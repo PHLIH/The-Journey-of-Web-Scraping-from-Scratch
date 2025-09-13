@@ -22,7 +22,7 @@
 eval(atob(window['b'])[J('0x0', ']dQW')](J('0x1', 'GTu!'), '\x27' + mw + '\x27'));
 ```
 很可疑！！！
-将其用控制台打印一下可得到：J('0x0', ']dQW') ===> replase
+将其用控制台打印一下可得到：J('0x0', ']dQW') ===> replace
 
 atob(window['b']):
 ![img.png](iamge/img.png)
