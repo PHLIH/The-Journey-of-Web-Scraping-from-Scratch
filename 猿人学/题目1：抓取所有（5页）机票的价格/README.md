@@ -27,10 +27,8 @@ eval(atob(window['b'])[J('0x0', ']dQW')](J('0x1', 'GTu!'), '\x27' + mw + '\x27')
 atob(window['b']):
 ![img.png](iamge/img.png)
 注意在这个文本最后有：window.f = hex_md5(mwqqppz)
-![img_1.png](img_1.png)
+![7cfcab8ec53216685863e1ca123e337c.png](iamge/7cfcab8ec53216685863e1ca123e337c.png)
 **window.f**已找到，将这一大串封装为字符串的代码转化为js文件，得到window_atob文件。
 然后结合gateway.js文件运行一下，不报错，且输出正确的加密格式
-
-![img_2.png](img_2.png)
-
+![574266a7b185c9d8dc970744b04315cb.png](iamge/574266a7b185c9d8dc970744b04315cb.png)
 OK，本题done！
